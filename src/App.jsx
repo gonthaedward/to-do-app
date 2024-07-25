@@ -1,18 +1,21 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './Header';
+import Body from './Body';
+import Todo from './Todo'; // Import the Todo component
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1 class="text-3xl font-bold underline text-red-200">
-        Hello world!
-      </h1>
-    </>
-  )
+    <Router>
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Body />} />
+          <Route path="/clock" element={<Body />} />
+          <Route path="/todo" element={<Todo />} /> 
+        </Routes>
+      </div>
+    </Router>
+  );
 }
 
-export default App
+export default App;
