@@ -11,8 +11,6 @@ function Body(){
     }
     setInterval(updateDay);
 
-    let dayTime = new dayjs();
-
     return(
     <div className="flex-grow flex justify-center items-center text-white">
         <p>Welcome, Current time in your place is {day}</p> 
