@@ -8,9 +8,7 @@ function Todo() {
   const [value,setValue] = useState("");
 
   // handling CRUD todo
-  const [todos,setTodos] = useState([
-    {text:"Tidur", isComplete: false}
-  ]);
+  const [todos,setTodos] = useState([]);
 
   //add
   const addTodo = (text) =>{
@@ -22,13 +20,16 @@ function Todo() {
 
   const updateTodo = (index) => {
     const newTodos = [...todos];
-    if(newTodos[index].isComplete == true)
-    {
-      newTodos[index].isComplete=false;
-    }
-    else{
-      newTodos[index].isComplete=true;
-    }
+    newTodos[index].isComplete = true;
+    setTodos(newTodos);
+  }
+
+  //remove
+
+  const removeTodo = (index) =>{
+    const newTodos = [...todos];
+    newTodos.splice(index,1);
+    setTodos(newTodos);
   }
 
 
@@ -51,22 +52,29 @@ function Todo() {
   return (
     <>
     {/* Form to Insert */}
-    <form onSubmit={handleSubmit}>
-        <label className='text-white'>Task:</label>
-        <input 
-        type='text' 
-        className='ml-7 bg-white input'
-        value ={value}
-        onChange={(e) => setValue(e.target.value)}>
-        </input><br></br><br></br>
-        <label id="error" className='hidden text-red-600'>Value cannot be blank</label>
-    </form>
+    <div className='ml-8'>
+      <form onSubmit={handleSubmit}>
+          <label className='text-white'>Task:</label>
+          <input 
+          type='text' 
+          className='ml-7 bg-white input'
+          value ={value}
+          size={25}
+          placeholder=' Input task and press enter.'
+          onChange={(e) => setValue(e.target.value)}>
+          </input><br></br><br></br>
+          <label id="error" className='hidden text-red-600'>Value cannot be blank</label>
+      </form>
 
-    {/* Render data from Form  */}
-      {todos.map((todo, ) =><li className={`text-white list-decimal ${todo.isComplete ? 'line-through' : ''}`}>
-          {todo.text}<button className="ml-5 border border-solid" onClick={() => updateTodo(index)}>Complete</button>
-      </li>
-    )}
+      {/* Render data from Form  */}
+        {todos.map((todo,index) =><li className={`text-white list-decimal mb-1 ${todo.isComplete ? 'line-through' : ''}`}>
+            {todo.text}
+            <button className={`ml-5 border border-solid ${todo.isComplete? 'hidden' : ''}`} onClick={() => updateTodo(index)}>Complete</button>
+            <button className={`ml-5 border border-solid`} onClick={() => removeTodo(index)}>Remove</button>
+        </li>
+      )}
+    </div>
+    
     </>
   )
 }
